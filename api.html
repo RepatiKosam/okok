@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Data</title>
+</head>
+<body>
+    <h1>Product Details</h1>
+    <table id="productTable">
+        <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be dynamically inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fetch product data from the API
+        fetch('https://fakestoreapi.com/products/1')
+            .then(res => res.json())  // Convert response to JSON
+            .then(json => {
+                // Get the table body element
+                const tableBody = document.querySelector('#productTable tbody');
+                
+                // Create a new row for the table
+                const row = document.createElement('tr');
+                
+                // Create cells and populate them with product data
+                row.innerHTML = `
+                    <td>${json.id}</td>
+                    <td>${json.title}</td>
+                    <td>${json.description}</td>
+                    <td>${json.price}</td>
+                    <td>${json.category}</td>
+                    <td><img src="${json.image}" alt="${json.title}" width="100"></td>
+                `;
+                
+                // Append the row to the table body
+                tableBody.appendChild(row);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>
